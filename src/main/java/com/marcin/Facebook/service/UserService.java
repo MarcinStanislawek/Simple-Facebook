@@ -3,6 +3,8 @@ package com.marcin.Facebook.service;
 import com.marcin.Facebook.model.LoginUserRequest;
 import com.marcin.Facebook.model.User;
 import com.marcin.Facebook.model.RegisterUserRequest;
+import com.marcin.Facebook.model.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -14,21 +16,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Service
 public class UserService {
 
-    private AtomicInteger counter = new AtomicInteger(0);
-    private List<User> users = new ArrayList<>();
     private static final String CHAR_LIST =
             "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private User userToValidate;
+    @Autowired
+    private UserRepository userRepository;
 
     public void createUser(RegisterUserRequest request) {
         String password = getRandomPassword(4);
-        User user = new User(counter.getAndIncrement(),
-                request.getName(),
-                request.getLastName(),
-                request.getSex(),
-                password,
-                request.getEmail());
-        users.add(user);
+        User user = new User();
+        user.setName(request.getName());
+        user.setLastName(request.getLastName());
+        user.setEmail(request.getEmail());
+        user.setPassword(password);
+        user.setSex(request.getSex());
+        userRepository.save(user);
     }
 
     public String getRandomPassword(Integer passwordLength) {
@@ -40,11 +42,11 @@ public class UserService {
     }
 
     public List<User> retriveUsers() {
-        return Collections.unmodifiableList(users);
+        return userRepository.findAll();
     }
 
     public String validateUser(LoginUserRequest request) {
-        userToValidate = users.stream().filter(c -> c.getEmail().equals(request.getEmail())).findAny().get();
+        userToValidate = retriveUsers().stream().filter(c -> c.getEmail().equals(request.getEmail())).findAny().get();
         if (userToValidate.getPassword().equals(request.getPassword())) {
             return "Logged in";
         }

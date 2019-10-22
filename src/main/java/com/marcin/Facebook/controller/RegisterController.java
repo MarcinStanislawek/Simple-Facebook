@@ -22,8 +22,7 @@ public class RegisterController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public void createUser(@RequestBody RegisterUserRequest request) {
-        service.createUser(request);
+    public void createUser(@RequestBody RegisterUserRequest request) { service.createUser(request);
     }
 
     @GetMapping
