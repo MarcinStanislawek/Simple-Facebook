@@ -1,8 +1,8 @@
-package com.marcin.Facebook.controller;
+package com.marcin.Facebook.user.controller;
 
-import com.marcin.Facebook.model.RegisterUserRequest;
-import com.marcin.Facebook.model.User;
-import com.marcin.Facebook.service.UserService;
+import com.marcin.Facebook.user.model.RegisterUserRequest;
+import com.marcin.Facebook.user.model.User;
+import com.marcin.Facebook.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package com.marcin.Facebook.model.ENUM;
+package com.marcin.Facebook.user.model;
 
 public enum Sex {
     MALE,

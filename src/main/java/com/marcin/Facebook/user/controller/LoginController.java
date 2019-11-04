@@ -1,7 +1,8 @@
-package com.marcin.Facebook.controller;
+package com.marcin.Facebook.user.controller;
 
-import com.marcin.Facebook.model.LoginUserRequest;
-import com.marcin.Facebook.service.UserService;
+import com.marcin.Facebook.user.model.LoginUserRequest;
+import com.marcin.Facebook.user.model.User;
+import com.marcin.Facebook.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class LoginController {
     }
 
     @GetMapping
-    public String validateUser(@RequestBody LoginUserRequest request) {
+    public User validateUser(@RequestBody LoginUserRequest request) {
         return userService.validateUser(request);
     }
 }

@@ -1,17 +1,15 @@
-package com.marcin.Facebook.service;
+package com.marcin.Facebook.user.service;
 
-import com.marcin.Facebook.model.LoginUserRequest;
-import com.marcin.Facebook.model.User;
-import com.marcin.Facebook.model.RegisterUserRequest;
-import com.marcin.Facebook.model.UserRepository;
+import com.marcin.Facebook.email.service.EmailService;
+import com.marcin.Facebook.user.model.LoginUserRequest;
+import com.marcin.Facebook.user.model.User;
+import com.marcin.Facebook.user.model.RegisterUserRequest;
+import com.marcin.Facebook.user.model.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class UserService {
@@ -21,6 +19,7 @@ public class UserService {
     private User userToValidate;
     @Autowired
     private UserRepository userRepository;
+    private EmailService emailService;
 
     public void createUser(RegisterUserRequest request) {
         String password = getRandomPassword(4);
@@ -45,12 +44,22 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public String validateUser(LoginUserRequest request) {
+    public User validateUser(LoginUserRequest request) {
         userToValidate = retriveUsers().stream().filter(c -> c.getEmail().equals(request.getEmail())).findAny().get();
         if (userToValidate.getPassword().equals(request.getPassword())) {
-            return "Logged in";
+            return userToValidate;
         }
-        return "Incorrect password or email";
+        return null;
+    }
+
+    public String getUserEmailById(Integer id) {
+        User user = userRepository.findById(id).get();
+        return user.getEmail();
+    }
+
+    public void sendEmailToUser(Integer userId, String subject, String text){
+        String email = userRepository.findById(userId).get().getEmail();
+        emailService.sendEmail(email, subject, text);
     }
 }
 

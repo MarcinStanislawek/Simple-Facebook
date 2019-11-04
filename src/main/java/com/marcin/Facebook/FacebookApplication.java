@@ -1,6 +1,5 @@
 package com.marcin.Facebook;
 
-import com.marcin.Facebook.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

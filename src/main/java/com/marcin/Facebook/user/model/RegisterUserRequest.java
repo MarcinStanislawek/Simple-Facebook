@@ -1,6 +1,6 @@
-package com.marcin.Facebook.model;
+package com.marcin.Facebook.user.model;
 
-import com.marcin.Facebook.model.ENUM.Sex;
+import com.marcin.Facebook.user.model.Sex;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

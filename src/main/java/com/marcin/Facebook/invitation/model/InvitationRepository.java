@@ -1,9 +1,9 @@
-package com.marcin.Facebook.model;
+package com.marcin.Facebook.invitation.model;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface InvitationRepository extends JpaRepository<Invitation, Integer> {
 
 }

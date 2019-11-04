@@ -1,4 +1,4 @@
-package com.marcin.Facebook.model;
+package com.marcin.Facebook.message.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,11 +9,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginUserRequest {
+public class DeleteMessageRequest {
 
     @NotNull
-    private String password;
-
-    @NotNull
-    private String email;
+    private Integer id;
 }
